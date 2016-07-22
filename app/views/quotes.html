@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="topMenu">
+      <h1>Welcome, {{session['alias']}}!</h1>
+      <a style="float:right;margin-right:10px;" href="/logout">Logout</a>
+    </div>
+    <div class="allQuotes" style="clear:both;float:left;width:45%;">
+      <h3>Quotable Quotes</h3>
+      <div class="quotesContain">
+        {% for quote in all_quotes %}
+          <div class="quote">
+            <p>{{quote['author']}}: {{quote['quote']}}</p>
+            <p>Posted by <a href="/users/{{quote['user_id']}}">{{quote['alias']}}</a></p>
+            <a href="/addtofav/{{quote['id']}}"><button type="button" name="addtofav">Add to My List</button></a>
+          </div>
+        {% endfor %}
+      </div>
+    <div class="userFavs" style="float:right;width:45%;">
+      <h3>Your Favorites</h3>
+      <div class="userFavsContainer" style="height:200px;overflow-y:scroll;border:solid 1px gray;padding:10px;">
+
+        {% for fav in all_favs %}
+          <div class="quote">
+            <p>{{fav['quote_author']}}: {{fav['quote']}}</p>
+            <p>Posted by <a href="/users/{{fav['poster_id']}}">{{fav['poster_alias']}}</a></p>
+            <a href="/removefav/{{session['id']}}"><button type="button" name="removefav">Remove From My List</button></a>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <div class="contribQuote">
+      <form action="quotes/newquote" method="post">
+        <h3>Contribute a Quote</h3>
+        <p>
+          Quoted By: <input type="text" name="author" >
+        </p>
+        <p>
+          Message: <input type="textarea" name="quote" >
+        </p>
+        <input type="submit" value="Submit">
+      </form>
+
+    </div>
+    </body>
+</html>

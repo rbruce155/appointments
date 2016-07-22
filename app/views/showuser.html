@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="topMenu">
+      <h1>User Information:</h1>
+      <p style="float:right;margin-left:10px;"><a href="/logout">Logout</a></p>
+      <p style="float:right"><a href="/quotes">Dashboard</a></p>
+    </div>
+
+    <p>
+      Posts by {{user_quotes[0]['user_name']}}
+    </p>
+    <p>
+      Count: {{count}}
+    </p>
+    <br>
+    <hr>
+    <br>
+    {% for quote in user_quotes %}
+      <p>
+        <span style="color:red;">{{quote['quote_author']}}: </span>{{quote['quote']}}
+      </p>
+    {% endfor %}
+
+    </body>
+</html>

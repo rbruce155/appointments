@@ -12,9 +12,9 @@ class DBConfig(object):
 
 """ Put Development Specific Configurations here """
 class DevelopmentDBConfig(DBConfig):
-    DB_USERNAME = 'quotespylotAdmin'
+    DB_USERNAME = 'appintmentsAdmin'
     DB_PASSWORD = 'tacosaregood'
-    DB_DATABASE_NAME = 'quotespylot'
+    DB_DATABASE_NAME = 'appointmentspylotdb'
     DB_HOST = 'localhost'
     DB_PORT = 3306
     # """ unix_socket is used for connecting with MAMP. Take this out if you aren't using MAMP """

@@ -8,47 +8,35 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema quotespylot
+-- Schema appointmentspylotdb
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema quotespylot
+-- Schema appointmentspylotdb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `quotespylot` DEFAULT CHARACTER SET utf8 ;
-USE `quotespylot` ;
+CREATE SCHEMA IF NOT EXISTS `appointmentspylotdb` DEFAULT CHARACTER SET utf8 ;
+USE `appointmentspylotdb` ;
 
 -- -----------------------------------------------------
--- Table `quotespylot`.`favorite`
+-- Table `appointmentspylotdb`.`appointment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quotespylot`.`favorite` (
+CREATE TABLE IF NOT EXISTS `appointmentspylotdb`.`appointment` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
-  `quote_id` INT(11) NOT NULL,
+  `tasks` TEXT NULL DEFAULT NULL,
+  `status` VARCHAR(255) NULL DEFAULT 'Pending',
+  `appmt_date` DATE NULL DEFAULT NULL,
+  `appmt_time` TIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `quotespylot`.`quote`
+-- Table `appointmentspylotdb`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quotespylot`.`quote` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
-  `quote` TEXT NULL DEFAULT NULL,
-  `author` VARCHAR(255) NULL DEFAULT NULL,
-  `created_at` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `quotespylot`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `quotespylot`.`user` (
+CREATE TABLE IF NOT EXISTS `appointmentspylotdb`.`user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NULL DEFAULT NULL,
   `alias` VARCHAR(255) NULL DEFAULT NULL,
@@ -58,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `quotespylot`.`user` (
   `created_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 

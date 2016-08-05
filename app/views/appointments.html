@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="topMenu">
+      <h1>Welcome, {{session['alias']}}!</h1>
+      <a style="float:right;margin-right:10px;" href="/logout">Logout</a>
+    </div>
+
+      <h3>Here are your appointments for today, {{dateStr}} </h3>
+      <div class="todaysContain" >
+        <table class="table table-striped">
+          <tr>
+            <th>Tasks</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          {% for appmt in all_usr_appmts %}
+            <tr>
+              <td>{{appmt['tasks']}}</td>
+              <td>{{appmt['appmt_time']}}</td>
+              <td>{{appmt['status']}}</td>
+              {% if not appmt['status'] == "Done" %}
+                <td><a href="/edit/{{appmt['id']}}">Edit</a> | <a href="/deleteAppmt/{{appmt['id']}}">Delete</a></td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <h3>Your other appointments:</h3>
+      <div class="otherContainer">
+        <table class="table table-striped">
+          <tr>
+            <th>Tasks</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+          {% for appmt in all_other_appmts %}
+            <tr>
+              <td>{{appmt['tasks']}}</td>
+              <td>{{appmt['appmt_date'].strftime("%B %d")}}</td>
+              <td>{{appmt['appmt_time']}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+    <div class="addAppmt">
+      <form action="/newAppmt" method="post">
+        <h3>Add Appointment</h3>
+        <p>
+          Date: <input type="date" name="appmt_date" >
+        </p>
+        <p>
+          Time: <input type="time" name="appmt_time" >
+        </p>
+        <p>
+          Tasks: <input type="textarea" name="tasks" >
+        </p>
+        <input type="submit" value="Add">
+      </form>
+
+    </div>
+
+    </body>
+</html>

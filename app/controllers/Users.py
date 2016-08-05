@@ -1,11 +1,3 @@
-"""
-    Sample Controller File
-
-    A Controller should be in charge of responding to a request.
-    Load models to interact with the database and load views to render them to the client.
-
-    Create a controller using this template
-"""
 from system.core.controller import *
 
 class Users(Controller):
@@ -42,7 +34,7 @@ class Users(Controller):
             session['alias'] = register_status['newUser']['alias']
 
             flash("Successfully registered!", 'success')
-            return redirect('/quotes')
+            return redirect('/appointments')
 
         else:
             for message in register_status['errors']:
@@ -65,7 +57,7 @@ class Users(Controller):
             session['alias'] = login_status['userMatch']['alias']
 
             flash("Successfully loged in!", 'success')
-            return redirect('/quotes')
+            return redirect('/appointments')
 
         else:
             for message in login_status['errors']:

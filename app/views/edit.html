@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="topMenu">
+      <h1>Welcome, {{session['alias']}}!</h1>
+      <a style="float:right;margin-right:10px;" href="/logout">Logout</a>
+    </div>
+
+    <div class="updateAppmt">
+      <form action="/updateAppmt" method="post">
+        <h3>Edit Appointment:</h3>
+        <input type="hidden" name="appmtId" value="{{appmtId}}">
+        <p>
+          Tasks: <input type="textarea" name="tasks" value="{{appmt_info[0]['tasks']}}" >
+        </p>
+        <p>
+          Status:<br>
+          <select name="status" value="{{appmt_info[0]['status']}}">
+            <option>Pending</option>
+            <option>Done</option>
+            <option>Missed</option>
+          </select>
+        </p>
+        <p>
+          Date: <input type="date" name="appmt_date" value="{{appmt_info[0]['appmt_date']}}" >
+        </p>
+        <p>
+          Time: <input type="time" name="appmt_time" value="{{appmt_info[0]['appmt_time']}}" >
+        </p>
+
+        <input type="submit" value="Update">
+      </form>
+
+    </div>
+
+    </body>
+</html>
